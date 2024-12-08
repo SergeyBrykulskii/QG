@@ -1,0 +1,8 @@
+Main feature:
+1. Generation of unique queues depending on previous queues for this discipline (with the fairest possible priorities)
+
+Common features:
+1. Sing in/up for three type of users(group admin, group member, assessor)
+2. Group creation
+3. Queue management (for correct future queue generation)
+4. Collection and display of statistics for a specific group member and for the group as a whole
