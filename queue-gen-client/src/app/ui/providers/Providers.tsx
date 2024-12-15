@@ -1,6 +1,6 @@
 'use client';
 
-import { theme } from '@/src/shared/ui/theme';
+import { theme } from '@/src/shared/lib/theme';
 import { ThemeProvider } from '@mui/material';
 import { ReactNode } from 'react';
 
