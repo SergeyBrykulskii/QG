@@ -2,6 +2,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using QueueGen.Api.Dtos.Auth;
 using QueueGen.Core.Command.Auth.Login;
+using QueueGen.Core.Command.Auth.Refresh;
 using QueueGen.Core.Command.Auth.Register;
 
 namespace QueueGen.Api.Controllers;
@@ -32,8 +33,13 @@ public class AuthController(IMediator mediator) : Controller
     }
 
     [HttpPost("refresh")]
-    public async Task<IActionResult> RefreshToken()
+    public async Task<IActionResult> RefreshToken([FromBody] Refresh.Request.Body request, CancellationToken cancellationToken)
     {
-        return Ok();
+        var command = new RefreshCommand(request.RefreshToken);
+        var result = await mediator.Send(command, cancellationToken);
+        
+        return result.IsSuccess 
+            ? Ok(result.Data) 
+            : BadRequest(result.ErrorMessage);
     }
 }

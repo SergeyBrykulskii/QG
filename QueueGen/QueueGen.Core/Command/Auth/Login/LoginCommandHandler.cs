@@ -10,20 +10,20 @@ using QueueGen.Infrastructure.Repositories.Abstractions;
 namespace QueueGen.Core.Command.Auth.Login;
 
 public class LoginCommandHandler(IBaseRepository<User> userRepository, ITokenService tokenService)
-    : IRequestHandler<LoginCommand, BaseResult<AuthResultModel>>
+    : IRequestHandler<LoginCommand, BaseResult<AuthResult>>
 {
-    public async Task<BaseResult<AuthResultModel>> Handle(LoginCommand command, CancellationToken cancellationToken)
+    public async Task<BaseResult<AuthResult>> Handle(LoginCommand command, CancellationToken cancellationToken)
     {
         var user = await userRepository.GetAll().FirstOrDefaultAsync(u => u.Email == command.Email, cancellationToken);
 
         if (user == null)
         {
-            return BaseResult<AuthResultModel>.Failed("Invalid email address");
+            return BaseResult<AuthResult>.Failed("Invalid email address");
         }
 
         if (user.Password != command.Password)
         {
-            return BaseResult<AuthResultModel>.Failed("Invalid password");
+            return BaseResult<AuthResult>.Failed("Invalid password");
         }
 
         Claim[] claims = [new(ClaimTypes.Email, user.Email), new("Id", user.Id.ToString())];
@@ -31,6 +31,6 @@ public class LoginCommandHandler(IBaseRepository<User> userRepository, ITokenSer
         var accessToken = tokenService.GenerateAccessToken(claims);
         var refreshToken = tokenService.GenerateRefreshToken([new Claim("Id", user.Id.ToString())]);
 
-        return BaseResult<AuthResultModel>.Succeeded(new AuthResultModel(accessToken, refreshToken));
+        return BaseResult<AuthResult>.Succeeded(new AuthResult(accessToken, refreshToken));
     }
 }
