@@ -14,9 +14,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         // Связь с группой (Group)
         builder.HasOne(u => u.Group)
             .WithMany(g => g.Users)
-            .HasForeignKey(u => u.GroupId)
-            .IsRequired()
-            .OnDelete(DeleteBehavior.Cascade); // Удаление группы удаляет пользователей
+            .HasForeignKey(u => u.GroupId);
 
         // Связь с QueueUser
         builder.HasMany(u => u.QueueUsers)
@@ -32,7 +30,6 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
 
         // Настройка свойства Nickname
         builder.Property(u => u.Nickname)
-            .IsRequired()
             .HasMaxLength(100); // Ограничение длины строки
     }
 }

@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace QueueGen.Api.Controllers;
 
-[Route("api/[controller]")]
+[Route("api/queue")]
 public class QueueController : Controller
 {
 }

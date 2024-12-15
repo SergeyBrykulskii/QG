@@ -6,12 +6,12 @@ namespace QueueGen.Infrastructure.Repositories;
 public class BaseRepository<TEntity>(AppDbContext dbContext) : IBaseRepository<TEntity>
     where TEntity : class
 {
-    public async Task<TEntity> CreateAsync(TEntity entity)
+    public async Task<TEntity> CreateAsync(TEntity entity, CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(entity);
 
-        await dbContext.AddAsync(entity);
-
+        await dbContext.AddAsync(entity, cancellationToken);
+        
         return entity;
     }
 

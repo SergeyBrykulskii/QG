@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace QueueGen.Api.Controllers;
 
-[Route("api/[controller]")]
+[Route("api/group")]
 public class GroupController : Controller
 {
     // GET
