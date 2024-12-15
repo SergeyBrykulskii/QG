@@ -1,8 +1,3 @@
-import type { UserObject, BackendJWT, BackendAccessJWT } from "next-auth";
-import { v4 as uuidv4 } from "uuid";
-
-var jwt = require("jsonwebtoken");
-
 /**
  * Log in a user by sending a POST request to the backend using the supplied credentials.
  *
@@ -13,27 +8,27 @@ var jwt = require("jsonwebtoken");
  * @returns A BackendJWT response from the backend.
  */
 export async function login(
-  email: string,
-  password: string
+    email: string,
+    password: string
 ): Promise<Response> {
-  console.debug("Logging in");
+    console.debug('Logging in');
 
-  if (!email || !password) {
-    throw new Error("Email and password are required");
-  }
+    if (!email || !password) {
+        throw new Error('Email and password are required');
+    }
 
-  // Dummy data to simulate a successful login
-  const response = await fetch("http://localhost:5202/api/auth/login", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ email, password }),
-  });
+    // Dummy data to simulate a successful login
+    const response = await fetch('http://localhost:5202/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+    });
 
-  if (!response.ok) {
-    throw new Error("Login failed");
-  }
+    if (!response.ok) {
+        throw new Error('Login failed');
+    }
 
-  return response; 
+    return response;
 }
 
 /**
@@ -45,21 +40,21 @@ export async function login(
  * @returns A BackendAccessJWT response from the backend.
  */
 export async function refresh(refreshToken: string): Promise<Response> {
-  console.debug("Refreshing token");
+    console.debug('Refreshing token');
 
-  if (!refreshToken) {
-    throw new Error("Refresh token is required");
-  }
+    if (!refreshToken) {
+        throw new Error('Refresh token is required');
+    }
 
-  const response = await fetch("http://localhost:5202/api/auth/refresh", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ refreshToken }),
-  });
+    const response = await fetch('http://localhost:5202/api/auth/refresh', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ refreshToken }),
+    });
 
-  if (!response.ok) {
-    throw new Error("Refresh token failed");
-  }
+    if (!response.ok) {
+        throw new Error('Refresh token failed');
+    }
 
-  return response;
+    return response;
 }

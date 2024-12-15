@@ -1,12 +1,12 @@
-import LoginPage from "@/src/fsdPages/loginPage/login";
+import LoginPage from '@/src/fsdPages/login/ui/login';
 
 const Login = () => {
-  return (
-    <>
-      <p>Test login</p>
-      <LoginPage />
-    </>
-  );
+    return (
+        <>
+            <p>Test login</p>
+            <LoginPage />
+        </>
+    );
 };
 
 export default Login;
