@@ -8,4 +8,5 @@ public interface ITokenService
     string GenerateRefreshToken(IEnumerable<Claim> claims);
     bool IsTokenValid(string token);
     IEnumerable<Claim>? GetClaimsFromToken(string token);
+    Guid? GetUserIdFromToken(string token);
 }

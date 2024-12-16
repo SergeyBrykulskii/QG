@@ -1,5 +1,5 @@
 import CredentialsProvider from 'next-auth/providers/credentials';
-import NextAuth, {
+import {
     AuthOptions,
     AuthValidity,
     BackendAccessJWT,

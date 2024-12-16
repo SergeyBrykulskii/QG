@@ -68,4 +68,12 @@ public class TokenService(IOptions<JwtOptions> options) : ITokenService
             ? null
             : jwtToken.Claims;
     }
+    
+    public Guid? GetUserIdFromToken(string token)
+    {
+        var claims = GetClaimsFromToken(token);
+        var userIdClaim = claims?.FirstOrDefault(c => c.Type == "Id")?.Value;
+
+        return Guid.TryParse(userIdClaim, out var userId) ? userId : null;
+    }
 }
